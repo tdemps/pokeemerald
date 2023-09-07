@@ -1519,10 +1519,10 @@ static const u8 sMysticTicketDesc[] = _(
     "to board the ship\n"
     "to NAVEL ROCK.");
 
-static const u8 sAuroraTicketDesc[] = _(
-    "A ticket required\n"
-    "to board the ship\n"
-    "to BIRTH ISLAND.");
+static const u8 sBowTieDesc[] = _(
+    "Satin, black, bow\n"
+    "tie. Self-tied, of\n"
+    "course!");
 
 static const u8 sPowderJarDesc[] = _(
     "Stores BERRY\n"

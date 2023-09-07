@@ -4460,10 +4460,10 @@ const struct Item gItems[] =
 
     [ITEM_AURORA_TICKET] =
     {
-        .name = _("AURORATICKET"),
+        .name = _("BOW TIE"),
         .itemId = ITEM_AURORA_TICKET,
         .price = 0,
-        .description = sAuroraTicketDesc,
+        .description = sBowTieDesc,
         .importance = 1,
         .registrability = TRUE,
         .pocket = POCKET_KEY_ITEMS,

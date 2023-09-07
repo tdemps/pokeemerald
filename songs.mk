@@ -34,7 +34,7 @@ $(MID_SUBDIR)/mus_b_palace.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G108 -V105
 
 $(MID_SUBDIR)/mus_b_tower_rs.s: %.s: %.mid
-	$(MID) $< $@ -E -R$(STD_REVERB) -G035 -V080
+	$(MID) $< $@ -E -R$(STD_REVERB) -G034 -V080
 
 $(MID_SUBDIR)/mus_b_pike.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G112 -V092
@@ -510,8 +510,9 @@ $(MID_SUBDIR)/mus_rg_new_game_instruct.s: %.s: %.mid
 $(MID_SUBDIR)/mus_rg_viridian_forest.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G146 -V090
 
+# G034 is drums, no go
 $(MID_SUBDIR)/mus_rg_trainer_tower.s: %.s: %.mid
-	$(MID) $< $@ -E -R$(STD_REVERB) -G134 -V090
+	$(MID) $< $@ -E -R$(STD_REVERB) -G137 -V090
 
 $(MID_SUBDIR)/mus_rg_celadon.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G168 -V070

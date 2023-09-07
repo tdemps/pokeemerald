@@ -720,7 +720,10 @@ const u32 gItemIcon_MysticTicket[] = INCBIN_U32("graphics/items/icons/mystic_tic
 const u32 gItemIconPalette_MysticTicket[] = INCBIN_U32("graphics/items/icon_palettes/mystic_ticket.gbapal.lz");
 
 const u32 gItemIcon_AuroraTicket[] = INCBIN_U32("graphics/items/icons/aurora_ticket.4bpp.lz");
+// const u32 gItemIcon_BowTie[] = INCBIN_U32("graphics/items/icons/bow_tie.4bpp");
+
 const u32 gItemIconPalette_AuroraTicket[] = INCBIN_U32("graphics/items/icon_palettes/aurora_ticket.gbapal.lz");
+// const u32 gItemIconPalette_BowTie[] = INCBIN_U32("graphics/items/icon_palettes/bow_tie.gbapal");
 
 const u32 gItemIcon_PowderJar[] = INCBIN_U32("graphics/items/icons/powder_jar.4bpp.lz");
 const u32 gItemIconPalette_PowderJar[] = INCBIN_U32("graphics/items/icon_palettes/powder_jar.gbapal.lz");
