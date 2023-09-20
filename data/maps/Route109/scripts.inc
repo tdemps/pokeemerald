@@ -549,7 +549,9 @@ Route109_Text_ZigzagoonPicksUpLitter:
 	.string "back to haunt us eventually.$"
 
 Route109_Text_ZigzagoonCry:
-	.string "ZIGZAGOON: Guguu?$"
+    .string "{COLOR RED}Ruby{COLOR DARK_GRAY}:Woof, woof!\n"
+    .string "(I promise not to eat the cake\l"
+    .string "off of the table..).$"
 
 Route109_Text_SeashoreHouseSign:
 	.string "SEASHORE HOUSE\p"
