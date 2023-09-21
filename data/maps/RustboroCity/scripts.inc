@@ -4,6 +4,7 @@
 .set LOCALID_GRUNT, 10
 .set LOCALID_RIVAL, 14
 .set LOCALID_SCIENTIST, 15
+.set LOCALID_TANNER, 12
 
 RustboroCity_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_OnTransition
@@ -15,7 +16,12 @@ RustboroCity_OnTransition:
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_HideMapNamePopup
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
-	goto_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_PositionScientistForExit
+	goto_if_eq VAR_RUSTBORO_CITY_STATE, 6,
+	goto_if_set FLAG_HIDE_RUSTBORO_CITY_SCIENTIST, Position_Tanner
+	end
+
+Position_Tanner::
+	setobjectxyperm LOCALID_TANNER, 11, 15
 	end
 
 RustboroCity_EventScript_PositionScientistForExit::
@@ -139,8 +145,7 @@ RustboroCity_Movement_ScientistLeave:
 RustboroCity_EventScript_FatMan::
 	lock
 	faceplayer
-	goto_if_set FLAG_DEVON_GOODS_STOLEN, RustboroCity_EventScript_FatManSawGrunt
-	msgbox RustboroCity_Text_WeShortenItToDevon, MSGBOX_DEFAULT
+	msgbox RustboroCity_Text_CeremonyDad, MSGBOX_DEFAULT
 	release
 	end
 
@@ -157,7 +162,7 @@ RustboroCity_EventScript_DevonEmployee2::
 	end
 
 RustboroCity_EventScript_Woman::
-	msgbox RustboroCity_Text_GymLeaderIsntEasyWithFire, MSGBOX_NPC
+	msgbox RustboroCity_Text_CeremonyConner, MSGBOX_NPC
 	end
 
 RustboroCity_EventScript_Man1::
@@ -187,11 +192,12 @@ RustboroCity_EventScript_Boy2BrineyLeftTunnel::
 	end
 
 RustboroCity_EventScript_Twin::
-	msgbox RustboroCity_Text_WowYouHavePokemon, MSGBOX_NPC
+	msgbox RustboroCity_Text_CeremonyHaley, MSGBOX_NPC
 	end
 
+@ Mom
 RustboroCity_EventScript_NinjaBoy::
-	msgbox RustboroCity_Text_CatchRarePokemonIfIGoToSchool, MSGBOX_SIGN
+	msgbox RustboroCity_Text_CeremonyMom, MSGBOX_SIGN
 	end
 
 RustboroCity_EventScript_TunnelSign::
@@ -1017,15 +1023,18 @@ RustboroCity_Movement_RivalApproachPlayer7:
 	walk_down
 	step_end
 
+@ Mike
 RustboroCity_EventScript_Boy1::
-	msgbox RustboroCity_Text_YouCanHave2On2Battle, MSGBOX_NPC
+	msgbox RustboroCity_Text_CeremonyMike, MSGBOX_NPC
 	end
 
-RustboroCity_Text_WeShortenItToDevon:
-	.string "The DEVON CORPORATION…\n"
-	.string "We all just shorten it to DEVON.\p"
-	.string "That company makes all sorts of\n"
-	.string "convenient products.$"
+RustboroCity_Text_CeremonyDad:
+    .string "{COLOR RED}Dad{COLOR DARK_GRAY}: Excited for you T!\p"
+	.string "Not sure how we aced it with our first\n"
+	.string "kid, but you're all I could want.\n"
+	.string "Also bought a grill to the hotel,\n"
+    .string "not feeling this French food.\n"
+    .string "Hope that's okay$"
 
 RustboroCity_Text_SneakyLookingManWentAroundCorner:
 	.string "Hm? A sneaky-looking man?\p"
@@ -1049,12 +1058,9 @@ RustboroCity_Text_YoureNewAroundHere:
 	.string "Have you just transferred into the\n"
 	.string "POKéMON TRAINER'S SCHOOL?$"
 
-RustboroCity_Text_GymLeaderIsntEasyWithFire:
-	.string "I challenged the GYM LEADER, but…\p"
-	.string "It's not going to be easy winning with\n"
-	.string "my FIRE-type POKéMON…\p"
-	.string "FIRE-type POKéMON don't match up\n"
-	.string "well against ROCK-type POKéMON…$"
+RustboroCity_Text_CeremonyConner:
+    .string "{COLOR RED}Conner{COLOR DARK_GRAY}: Did you know there's\n"
+    .string "no Barstool Paris?$"
 
 RustboroCity_Text_MrBrineyWalksInTheTunnel:
 	.string "The old sailor MR. BRINEY lives in\n"
@@ -1070,15 +1076,15 @@ RustboroCity_Text_MrBrineyLovesPeeko:
 	.string "That old sea dog, he must really love\n"
 	.string "that PEEKO.$"
 
-RustboroCity_Text_WowYouHavePokemon:
-	.string "Wow, you have POKéMON with you, too.\p"
-	.string "When I get bigger, I'm going to go\n"
-	.string "places with POKéMON, too.$"
+RustboroCity_Text_CeremonyHaley:
+    .string "{COLOR RED}Haley{COLOR DARK_GRAY}: You owe me an A+\n"
+    .string "midterm in Chem!$"
 
-RustboroCity_Text_CatchRarePokemonIfIGoToSchool:
-	.string "POKéMON TRAINER'S SCHOOL!\p"
-	.string "If I go to this school, will I be able\n"
-	.string "to catch rare POKéMON easily?$"
+RustboroCity_Text_CeremonyMom:
+    .string "{COLOR RED}Mom{COLOR DARK_GRAY}:Johnna looks so beautiful Tyler\n"
+	.string "I'm so thrilled for you both!. If only Daisy\p"
+    .string "could of gotten her passport\l"
+    .string "in time..$"
 
 RustboroCity_Text_PokemonCanChangeLookFromExp:
 	.string "If a POKéMON gains experience in\n"
@@ -1239,9 +1245,9 @@ RustboroCity_Text_DevonCorpSign:
 	.string "75001 Paris, France”$"
 
 RustboroCity_Text_GymSign:
-	.string "RUSTBORO CITY POKéMON GYM\n"
-	.string "LEADER: ROXANNE\p"
-	.string "“The ROCK-loving honors student!”$"
+	.string "IDK it's an art museum or\n"
+	.string "something.\p"
+	.string "“Noisy aren't you..”$"
 
 RustboroCity_Text_DevonCorpBranchOfficeSign:
 	.string "DEVON CORP. BRANCH OFFICE\p"
@@ -1287,12 +1293,127 @@ RustboroCity_Text_IdBetterGetBackToWork:
 	.string "Okay, I'd better get back to work.\n"
 	.string "Please take care, {PLAYER}!$"
 
-RustboroCity_Text_YouCanHave2On2Battle:
-	.string "Did you know this?\p"
-	.string "You can have a 2-on-2 battle even\n"
-	.string "if you're not with another TRAINER.\p"
-	.string "If you catch the eyes of two TRAINERS\n"
-	.string "when you have two or more POKéMON,\l"
-	.string "they'll both challenge you.\p"
-	.string "Don't you think it'd be cool if you\n"
-	.string "could beat two TRAINERS by yourself?$"
+RustboroCity_Text_CeremonyMike:
+    .string "{COLOR RED}Mike{COLOR DARK_GRAY}: Excited for you T! Also bought\n"
+    .string "a grill to the hotet, not feeling\p"
+    .string "this French food. Hope that's okay$"
+
+
+RustboroCity_EventScript_TannerWalkUp::
+	lock
+	@ Movement towards Player here
+	setobjectxyperm LOCALID_TANNER, 20, 21
+	addobject LOCALID_TANNER
+	applymovement LOCALID_TANNER, Tanner_MovementWalkUp
+	waitmovement 0
+	faceplayer
+	msgbox Tanner_CheckBowTieForgot_Text, MSGBOX_DEFAULT
+	@ call RustboroCity_EventScript_PlayRivalMusic
+	playse SE_PIN
+	applymovement LOCALID_TANNER, Tanner_MovementTowardsHouse
+	applymovement OBJ_EVENT_ID_PLAYER, Tanner_MovementTowardsHouse
+	waitmovement 0
+	call Tanner_WeddingGiftScript_BowTie
+
+Tanner_CheckBowTieForgot_Text:
+    .string "TYLER!!{PAUSE 30}. You're missing your {COLOR RED}tie!{COLOR DARK_GRAY}\n"
+    .string "I think you may have left it in my room\l"
+    .string "Let's go check$"
+
+Tanner_MovementTowardsHouse:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	step_end
+
+Tanner_MovementWalkUp:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_up
+	step_end
+
+Tanner_WeddingGiftScript_BowTie::
+	setvaddress Tanner_WeddingGiftScript_BowTie
+	lock
+	faceplayer
+	vgoto_if_set FLAG_RECEIVED_AURORA_TICKET, BowTie_Obtained
+	checkitem ITEM_AURORA_TICKET
+	vgoto_if_eq VAR_RESULT, TRUE, BowTie_Obtained
+	vmessage sText_BowTieForYou
+	waitmessage
+	waitbuttonpress
+	checkitemspace ITEM_AURORA_TICKET
+	vgoto_if_eq VAR_RESULT, FALSE, WeddingGift_NoBagSpace
+	playfanfare MUS_OBTAIN_ITEM
+	giveitem ITEM_AURORA_TICKET
+	@ setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
+	setflag FLAG_RECEIVED_AURORA_TICKET
+	@ vmessage sText_AuroraTicketUseAtPort
+	waitfanfare
+	waitmessage
+	setvar VAR_UNUSED_0x40F7, 1
+	@ We've gotten the bowtie
+	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
+	waitbuttonpress
+	release
+	end
+
+sText_BowTieForYou:
+	.string "Ah here it is! You're gonna\n"
+	.string "need this to look sharp!$\p"
+
+WeddingGift_NoBagSpace:
+	vmessage sText_AuroraTicketBagFull
+	waitmessage
+	waitbuttonpress
+	release
+	end
+
+sText_AuroraTicketBagFull:
+	.string "Oh, I'm sorry, {PLAYER}.\n"
+	.string "Your BAG's KEY ITEMS POCKET is full.\p"
+	.string "Please store something on your PC,\n"
+	.string "then come back for this.$"
+
+BowTie_Obtained:
+	vmessage sText_BowTieThankYou
+	waitmessage
+	waitbuttonpress
+	release
+	end
+
+sText_BowTieThankYou:
+	.string "We better hurry up and get\n"
+    .string "to the ceremony {PLAYER}!$"
