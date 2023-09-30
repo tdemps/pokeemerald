@@ -510,9 +510,9 @@ $(MID_SUBDIR)/mus_rg_new_game_instruct.s: %.s: %.mid
 $(MID_SUBDIR)/mus_rg_viridian_forest.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G146 -V090
 
-# G034 is drums, no go
+# G034 is drums, no go, G160 is drums too..
 $(MID_SUBDIR)/mus_rg_trainer_tower.s: %.s: %.mid
-	$(MID) $< $@ -E -R$(STD_REVERB) -G137 -V090
+	$(MID) $< $@ -E -R$(STD_REVERB) -G045 -V090
 
 $(MID_SUBDIR)/mus_rg_celadon.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G168 -V070

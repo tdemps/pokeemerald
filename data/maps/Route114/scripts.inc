@@ -187,7 +187,7 @@ Route114_Text_ExplainRoar:
 	.string "A ROAR sends POKéMON scurrying.$"
 
 Route114_Text_Poochyena:
-    .string "{COLOR RED}Daisy{COLOR DARK_GRAY}:Woof, woof!\n"
+    .string "{COLOR RED}Daisy{COLOR DARK_GRAY}: Woof, woof!\n"
     .string "(Mom doesn't know I snuck in her\l"
     .string "suitcase).$"
 

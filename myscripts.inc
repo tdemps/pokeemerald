@@ -24,11 +24,6 @@ Tanner_CheckBowTie_SurprisedMovement:
 	delay_16
 	step_end
 
-Tanner_CheckBowTieForgot_Text:
-    .string "TYLER!!{PAUSE 30}. You're missing your {COLOR RED}tie!{COLOR DARK_GRAY}\n"
-    .string "I think you may have left it in my room\l"
-    .string "Let's go check$"
-
 Tanner_CheckBowTieLove_Text:
     .string "I know you are probably a ball of nerves,\n"
     .string "but you should know that you have so many\p"

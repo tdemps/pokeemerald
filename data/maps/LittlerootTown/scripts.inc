@@ -911,13 +911,6 @@ LittlerootTown_EventScript_GiveRunningShoes::
 
 LittlerootTown_Text_OurNewHomeLetsGoInside:
 	.string "MOM: {PLAYER}, we're here, honey!\p"
-	.string "It must be tiring riding with our things\n"
-	.string "in the moving truck.\p"
-	.string "Well, this is LITTLEROOT TOWN.\p"
-	.string "How do you like it?\n"
-	.string "This is our new home!\p"
-	.string "It has a quaint feel, but it seems to be\n"
-	.string "an easy place to live, don't you think?\p"
 	.string "And, you get your own room, {PLAYER}!\n"
 	.string "Let's go inside.$"
 
@@ -996,11 +989,11 @@ LittlerootTown_Text_GoodLuckCatchingPokemon:
 	.string "Good luck!$"
 
 LittlerootTown_Text_TownSign:
-	.string "LITTLEROOT TOWN\n"
+	.string "WARP TOWN\n"
 	.string "“A town that can't be shaded any hue.”$"
 
 LittlerootTown_Text_ProfBirchsLab:
-	.string "PROF. BIRCH'S POKéMON LAB$"
+	.string "PORTAL TO PARIS$"
 
 LittlerootTown_Text_PlayersHouse:
 	.string "{PLAYER}'s HOUSE$"
@@ -1018,63 +1011,6 @@ LittlerootTown_Text_BirchSomethingToShowYouAtLab:
 	.string "I gave you?\p"
 	.string "I have something to show you.\n"
 	.string "Let's go to my LAB.$"
-
-WeddingGiftScript_BowTie::
-	setvaddress WeddingGiftScript_BowTie
-	lock
-	faceplayer
-	vgoto_if_set FLAG_RECEIVED_AURORA_TICKET, BowTie_Obtained
-	checkitem ITEM_AURORA_TICKET
-	vgoto_if_eq VAR_RESULT, TRUE, BowTie_Obtained
-	vmessage sText_BowTieForYou
-	waitmessage
-	waitbuttonpress
-	checkitemspace ITEM_AURORA_TICKET
-	vgoto_if_eq VAR_RESULT, FALSE, WeddingGift_NoBagSpace
-	playfanfare MUS_OBTAIN_ITEM
-	giveitem ITEM_AURORA_TICKET
-	@ setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
-	setflag FLAG_RECEIVED_AURORA_TICKET
-	@ vmessage sText_AuroraTicketUseAtPort
-	waitfanfare
-	waitmessage
-	waitbuttonpress
-	release
-	end
-
-WeddingGift_NoBagSpace:
-	vmessage sText_AuroraTicketBagFull
-	waitmessage
-	waitbuttonpress
-	release
-	end
-
-BowTie_Obtained:
-	vmessage sText_BowTieThankYou
-	waitmessage
-	waitbuttonpress
-	release
-	end
-
-sText_BowTieForYou:
-	.string "Ah here it is! You're gonna\n"
-	.string "need this to look sharp!$\p"
-
-sText_AuroraTicketUseAtPort:
-	.string "It appears to be for use at the\n"
-	.string "LILYCOVE CITY port.\p"
-	.string "Why not give it a try and see what\n"
-	.string "it is about?$"
-
-sText_BowTieThankYou:
-	.string "We better hurry up and get\n"
-    .string "to the ceremony {PLAYER}!$"
-
-sText_AuroraTicketBagFull:
-	.string "Oh, I'm sorry, {PLAYER}.\n"
-	.string "Your BAG's KEY ITEMS POCKET is full.\p"
-	.string "Please store something on your PC,\n"
-	.string "then come back for this.$"
 
 sText_Dad:
 	.string "Testing"

@@ -13,15 +13,18 @@ RustboroCity_MapScripts::
 
 RustboroCity_OnTransition:
 	setflag FLAG_VISITED_RUSTBORO_CITY
+	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
 	call Common_EventScript_SetupRivalGfxId
 	call_if_eq VAR_RUSTBORO_CITY_STATE, 6, RustboroCity_EventScript_HideMapNamePopup
 	getplayerxy VAR_TEMP_0, VAR_TEMP_1
-	goto_if_eq VAR_RUSTBORO_CITY_STATE, 6,
-	goto_if_set FLAG_HIDE_RUSTBORO_CITY_SCIENTIST, Position_Tanner
+	goto_if_eq VAR_RUSTBORO_CITY_STATE, 6, 
+	call_if_eq VAR_RUSTBORO_CITY_STATE, 10, RustboroCity_ClearTannerFlag
 	end
 
-Position_Tanner::
-	setobjectxyperm LOCALID_TANNER, 11, 15
+RustboroCity_ClearTannerFlag:
+	clearflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
+	setflag FLAG_HAS_MATCH_CALL
+	setobjectxyperm LOCALID_TANNER, 20, 21
 	end
 
 RustboroCity_EventScript_PositionScientistForExit::
@@ -149,6 +152,25 @@ RustboroCity_EventScript_FatMan::
 	release
 	end
 
+WeddingIsland_Lisa::
+	msgbox WeddingIsland_LisaText, MSGBOX_NPC
+	end
+
+WeddingIsland_LisaText:
+	.string "{COLOR RED}Lisa{COLOR DARK_GRAY}: Love you Ty!!\n"
+	.string " $"
+
+RustboroCity_EventScript_Gwyn::
+	msgbox RustboroCity_Text_CeremonyGwyn, MSGBOX_NPC
+	end
+
+RustboroCity_Text_CeremonyGwyn:
+	.string "{COLOR RED}Gwyn{COLOR DARK_GRAY}:Thank you for inviting me!\n"
+	.string "It's been so great to get to know you,\l"
+	.string "Johnna, and the rest of your fam.\l"
+	.string "Also {COLOR LIGHT_RED}Bing{COLOR DARK_GRAY} says congrats$"
+
+
 RustboroCity_EventScript_FatManSawGrunt::
 	msgbox RustboroCity_Text_SneakyLookingManWentAroundCorner, MSGBOX_DEFAULT
 	release
@@ -195,9 +217,19 @@ RustboroCity_EventScript_Twin::
 	msgbox RustboroCity_Text_CeremonyHaley, MSGBOX_NPC
 	end
 
+RustboroCity_EventScript_FrenchMan::
+	msgbox RustboroCity_EventScript_sFrenchManText, MSGBOX_NPC
+	end
+
+RustboroCity_EventScript_sFrenchManText:
+	.string "pourquoi pensez-vous, les\n"
+	.string "Américains, que tous les\l"
+	.string "film préférés des Français\l"
+	.string "sont la Ratatouille!$"
+
 @ Mom
 RustboroCity_EventScript_NinjaBoy::
-	msgbox RustboroCity_Text_CeremonyMom, MSGBOX_SIGN
+	msgbox RustboroCity_Text_CeremonyMom, MSGBOX_NPC
 	end
 
 RustboroCity_EventScript_TunnelSign::
@@ -1029,11 +1061,11 @@ RustboroCity_EventScript_Boy1::
 	end
 
 RustboroCity_Text_CeremonyDad:
-    .string "{COLOR RED}Dad{COLOR DARK_GRAY}: Excited for you T!\p"
-	.string "Not sure how we aced it with our first\n"
-	.string "kid, but you're all I could want.\n"
-	.string "Also bought a grill to the hotel,\n"
-    .string "not feeling this French food.\n"
+    .string "{COLOR RED}Dad{COLOR DARK_GRAY}: Excited for you T!\n"
+	.string "Not sure how we aced it with our first\l"
+	.string "kid, but you're all I could want.\p"
+	.string "Also brought a grill to the hotel,\n"
+    .string "not feeling this French food,\l"
     .string "Hope that's okay$"
 
 RustboroCity_Text_SneakyLookingManWentAroundCorner:
@@ -1077,13 +1109,13 @@ RustboroCity_Text_MrBrineyLovesPeeko:
 	.string "that PEEKO.$"
 
 RustboroCity_Text_CeremonyHaley:
-    .string "{COLOR RED}Haley{COLOR DARK_GRAY}: You owe me an A+\n"
-    .string "midterm in Chem!$"
+    .string "{COLOR RED}Haley{COLOR DARK_GRAY}: You owe me an A+ midterm\n"
+    .string "in Chem!$"
 
 RustboroCity_Text_CeremonyMom:
-    .string "{COLOR RED}Mom{COLOR DARK_GRAY}:Johnna looks so beautiful Tyler\n"
-	.string "I'm so thrilled for you both!. If only Daisy\p"
-    .string "could of gotten her passport\l"
+    .string "{COLOR RED}Mom{COLOR DARK_GRAY}: Johnna looks so beautiful Tyler!\n"
+	.string "I'm so thrilled for you both. If only\l"
+    .string "Daisy could of gotten her passport\l"
     .string "in time..$"
 
 RustboroCity_Text_PokemonCanChangeLookFromExp:
@@ -1240,8 +1272,8 @@ RustboroCity_Text_TunnelNearingCompletion:
 	.string "across it in red paint…$"
 
 RustboroCity_Text_DevonCorpSign:
-	.string "Ritz Paris\p"
-	.string "“15 Pl. Vendôme\n"
+	.string "Ritz Paris\n"
+	.string "“15 Pl. Vendôme\l"
 	.string "75001 Paris, France”$"
 
 RustboroCity_Text_GymSign:
@@ -1294,13 +1326,22 @@ RustboroCity_Text_IdBetterGetBackToWork:
 	.string "Please take care, {PLAYER}!$"
 
 RustboroCity_Text_CeremonyMike:
-    .string "{COLOR RED}Mike{COLOR DARK_GRAY}: Excited for you T! Also bought\n"
-    .string "a grill to the hotet, not feeling\p"
-    .string "this French food. Hope that's okay$"
+    .string "{COLOR RED}Mike{COLOR DARK_GRAY}: So happy to be here to\n"
+    .string "celebrate with you both!!$"
 
+RustboroCity_EventScript_TannerWalkUpLeft::
+	applymovement OBJ_EVENT_ID_PLAYER, RustboroCity_MoveLeftWalkUp
+	waitmovement 0
+	call RustboroCity_EventScript_TannerWalkUp
+
+RustboroCity_MoveLeftWalkUp:
+	walk_right
+	face_down
+	step_end
 
 RustboroCity_EventScript_TannerWalkUp::
 	lock
+	playbgm MUS_FOLLOW_ME, TRUE
 	@ Movement towards Player here
 	setobjectxyperm LOCALID_TANNER, 20, 21
 	addobject LOCALID_TANNER
@@ -1311,21 +1352,32 @@ RustboroCity_EventScript_TannerWalkUp::
 	@ call RustboroCity_EventScript_PlayRivalMusic
 	playse SE_PIN
 	applymovement LOCALID_TANNER, Tanner_MovementTowardsHouse
-	applymovement OBJ_EVENT_ID_PLAYER, Tanner_MovementTowardsHouse
+	applymovement OBJ_EVENT_ID_PLAYER, Tyler_MovementTowardsHouse
 	waitmovement 0
-	call Tanner_WeddingGiftScript_BowTie
+	opendoor 33, 19
+	waitdooranim
+	applymovement LOCALID_TANNER, Tanner_WalkInHouse
+	applymovement OBJ_EVENT_ID_PLAYER, Tyler_WalkInHouse
+	waitmovement 0
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_RUSTBORO_CITY
+	closedoor 33, 19
+	waitdooranim
+	setvar VAR_RUSTBORO_CITY_STATE, 9
+	warp MAP_RUSTBORO_CITY_HOUSE1, 5, 7
+	releaseall
+	end
 
 Tanner_CheckBowTieForgot_Text:
-    .string "TYLER!!{PAUSE 30}. You're missing your {COLOR RED}tie!{COLOR DARK_GRAY}\n"
+    .string "{COLOR RED}Tanner: {COLOR DARK_GRAY}TYLER!!{PAUSE 30}. You're missing your {COLOR RED}tie!{COLOR DARK_GRAY}\n"
     .string "I think you may have left it in my room\l"
     .string "Let's go check$"
 
 Tanner_MovementTowardsHouse:
+	delay_8
 	walk_down
 	walk_down
 	walk_down
 	walk_down
-	walk_right
 	walk_right
 	walk_right
 	walk_right
@@ -1348,6 +1400,37 @@ Tanner_MovementTowardsHouse:
 	walk_right
 	walk_right
 	walk_up
+	step_end
+
+Tyler_MovementTowardsHouse:
+	delay_16
+	delay_8
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
 	step_end
 
 Tanner_MovementWalkUp:
@@ -1362,58 +1445,102 @@ Tanner_MovementWalkUp:
 	walk_up
 	walk_up
 	walk_up
+	walk_up
+	delay_16
+	emote_exclamation_mark
 	step_end
 
-Tanner_WeddingGiftScript_BowTie::
-	setvaddress Tanner_WeddingGiftScript_BowTie
-	lock
-	faceplayer
-	vgoto_if_set FLAG_RECEIVED_AURORA_TICKET, BowTie_Obtained
-	checkitem ITEM_AURORA_TICKET
-	vgoto_if_eq VAR_RESULT, TRUE, BowTie_Obtained
-	vmessage sText_BowTieForYou
-	waitmessage
-	waitbuttonpress
-	checkitemspace ITEM_AURORA_TICKET
-	vgoto_if_eq VAR_RESULT, FALSE, WeddingGift_NoBagSpace
-	playfanfare MUS_OBTAIN_ITEM
-	giveitem ITEM_AURORA_TICKET
-	@ setflag FLAG_ENABLE_SHIP_BIRTH_ISLAND
-	setflag FLAG_RECEIVED_AURORA_TICKET
-	@ vmessage sText_AuroraTicketUseAtPort
-	waitfanfare
-	waitmessage
-	setvar VAR_UNUSED_0x40F7, 1
-	@ We've gotten the bowtie
-	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
-	waitbuttonpress
-	release
-	end
+Tyler_WalkInHouse:
+	walk_up
+	walk_up
+	set_invisible
+	step_end
 
-sText_BowTieForYou:
+Tanner_WalkInHouse:
+	walk_up
+	set_invisible
+	step_end
+
+sText_BowTieForYou::
 	.string "Ah here it is! You're gonna\n"
 	.string "need this to look sharp!$\p"
 
-WeddingGift_NoBagSpace:
-	vmessage sText_AuroraTicketBagFull
+WeddingGift_NoBagSpace::
+	msgbox sText_AuroraTicketBagFull, MSGBOX_NPC
 	waitmessage
 	waitbuttonpress
 	release
 	end
 
-sText_AuroraTicketBagFull:
+sText_AuroraTicketBagFull::
 	.string "Oh, I'm sorry, {PLAYER}.\n"
 	.string "Your BAG's KEY ITEMS POCKET is full.\p"
 	.string "Please store something on your PC,\n"
 	.string "then come back for this.$"
 
-BowTie_Obtained:
-	vmessage sText_BowTieThankYou
+BowTie_Obtained::
+	msgbox sText_BowTieThankYou, MSGBOX_NPC
+	end
+
+sText_BowTieThankYou::
+	.string "We better hurry up and get\n"
+    .string "to the ceremony {PLAYER}!$"
+
+
+RustboroCity_ResetWeddingSequence::
+	setvar VAR_RUSTBORO_CITY_STATE, 1
+	clearflag FLAG_HAS_MATCH_CALL
+	setflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
+	removeitem ITEM_AURORA_TICKET
+	end
+
+WeddingIsland_FinalSequence::
+	lock
+	delay 8
+	delay 8
+	applymovement OBJ_EVENT_ID_PLAYER, WeddingIslandMovement
+	waitmovement 0
+	delay 8
+	applymovement 10, WeddingIsland_JohnnaFaceRight
+	waitmovement 0
+	msgbox sText_WeddingIsland, MSGBOX_DEFAULT
 	waitmessage
-	waitbuttonpress
+	fadescreen FADE_TO_BLACK
+	delay 16
+	fadescreen FADE_FROM_BLACK
+	setvar VAR_UNUSED_0x40F8, 1
 	release
 	end
 
-sText_BowTieThankYou:
-	.string "We better hurry up and get\n"
-    .string "to the ceremony {PLAYER}!$"
+WeddingIsland_JohnnaFaceRight:
+	face_right
+	delay_16
+	step_end
+
+sText_WeddingIsland:
+	.string "You and Johnna have been on an\n"
+	.string "incredible journey together thus far.\p"
+	.string "Today feels like a big step,\n"
+	.string "and it is the start of the\l"
+	.string "longest leg yet (hopefully forever!!).\p"
+	.string "It will contain some of the best moments\n"
+	.string "of your life. And while it will contain\l"
+	.string "challanges, remember that it is a\l"
+	.string "two-player game. We know double battles\l"
+	.string "are usually more fun anyway.\p"
+	.string "I figured you didn't need Running Shoes\n"
+	.string "for your big day, but I decided to make\l"
+	.string "this for you to help remember your\l"
+	.string "wedding day forever..\l"
+	.string "or for however long GBA emulators last.\l"
+	.string "{CLEAR_TO 80}   -Tanner$"
+
+WeddingIslandMovement:
+	walk_up
+	walk_up
+	walk_up
+	delay_16
+	walk_right
+	delay_8
+	face_left
+	step_end

@@ -289,7 +289,8 @@ LittlerootTown_BrendansHouse_1F_Movement_BrendanGoUpstairs2:
 
 PlayersHouse_1F_Text_IsntItNiceInHere:
 	.string "MOM: See, {PLAYER}?\n"
-	.string "Isn't it nice in here, too?$"
+	.string "The Ritz Paris looks just like\l"
+	.string "The gen3 starter home! Weird$"
 
 PlayersHouse_1F_Text_MoversPokemonGoSetClock:
 	.string "The mover's POKéMON do all the work\n"

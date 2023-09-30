@@ -1,5 +1,68 @@
 RustboroCity_House1_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, RustboroCity_House1_OnFrame
 	.byte 0
+
+RustboroCity_House1_OnFrame:
+	map_script_2 VAR_RUSTBORO_CITY_STATE, 9, Tanner_WeddingGiftScript_BowTie
+	.2byte 0
+
+Tanner_WeddingGiftScript_BowTie::
+	lock
+	checkitem ITEM_AURORA_TICKET
+	goto_if_eq VAR_RESULT, TRUE, sText_BowTieThankYou
+	applymovement 1, Tanner_GrabTie
+	waitmovement 0
+	msgbox sText_BowTieForYou, MSGBOX_DEFAULT
+	waitmessage
+	waitbuttonpress
+	checkitemspace ITEM_AURORA_TICKET
+	goto_if_eq VAR_RESULT, FALSE, WeddingGift_NoBagSpace
+	playfanfare MUS_OBTAIN_ITEM
+	giveitem ITEM_AURORA_TICKET
+	waitfanfare
+	setvar VAR_UNUSED_0x40F7, 1
+	@ We've gotten the bowtie
+	clearflag FLAG_HIDE_RUSTBORO_CITY_SCIENTIST
+	setvar VAR_RUSTBORO_CITY_STATE, 10
+	setflag FLAG_HAS_MATCH_CALL
+	waitmessage
+	releaseall
+	end
+
+House_BowTieObtainedAlreadyText::
+	.string "Ah here it is! You're gonna\n"
+	.string "need this to look sharp!$\p"
+
+House_BowTieObtainedAlready::
+	msgbox sText_BowTieThankYou, MSGBOX_NPC
+	end
+
+Tanner_GrabTie:
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	walk_up
+	delay_16
+	delay_16
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	delay_16
+	face_player
+	step_end
 
 RustboroCity_House1_EventScript_Trader::
 	lock
@@ -25,7 +88,6 @@ RustboroCity_House1_EventScript_Trader::
 	special DoInGameTradeScene
 	waitstate
 	msgbox RustboroCity_House1_Text_PleaseBeGoodToMyPokemon, MSGBOX_DEFAULT
-	setflag FLAG_RUSTBORO_NPC_TRADE_COMPLETED
 	release
 	end
 
@@ -78,4 +140,3 @@ RustboroCity_House1_Text_AllSortsOfPlaces:
 	.string "sorts of POKéMON and people.\p"
 	.string "I find that fascinating, so I go to all\n"
 	.string "sorts of places.$"
-
