@@ -1064,8 +1064,8 @@ RustboroCity_Text_CeremonyDad:
     .string "{COLOR RED}Dad{COLOR DARK_GRAY}: Excited for you T!\n"
 	.string "Not sure how we aced it with our first\l"
 	.string "kid, but you're all I could want.\p"
-	.string "Also brought a grill to the hotel,\n"
-    .string "not feeling this French food,\l"
+	.string "Also brought a grill to the hotel...\n"
+    .string "not a huge fan of this French food,\l"
     .string "Hope that's okay$"
 
 RustboroCity_Text_SneakyLookingManWentAroundCorner:
@@ -1482,6 +1482,13 @@ BowTie_Obtained::
 	msgbox sText_BowTieThankYou, MSGBOX_NPC
 	end
 
+JohnnaWeddingNpc::
+	msgbox sText_JohnnaWedding, MSGBOX_NPC
+	end
+
+sText_JohnnaWedding::
+	.string "{COLOR RED}Johnna: {COLOR DARK_GRAY}I love you Tyler!$"
+
 sText_BowTieThankYou::
 	.string "We better hurry up and get\n"
     .string "to the ceremony {PLAYER}!$"
@@ -1525,15 +1532,16 @@ sText_WeddingIsland:
 	.string "longest leg yet (hopefully forever!!).\p"
 	.string "It will contain some of the best moments\n"
 	.string "of your life. And while it will contain\l"
-	.string "challanges, remember that it is a\l"
+	.string "challenges, remember that it is a\l"
 	.string "two-player game. We know double battles\l"
-	.string "are usually more fun anyway.\p"
+	.string "are usually more fun anyway!\p"
 	.string "I figured you didn't need Running Shoes\n"
 	.string "for your big day, but I decided to make\l"
 	.string "this for you to help remember your\l"
 	.string "wedding day forever..\l"
 	.string "or for however long GBA emulators last.\l"
 	.string "{CLEAR_TO 80}   -Tanner$"
+
 
 WeddingIslandMovement:
 	walk_up
